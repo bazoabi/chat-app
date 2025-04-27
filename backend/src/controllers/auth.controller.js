@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import { generateToken } from "../lib/utils.js"; // Import the token generation function
+import cloudinary from "../lib/cloudinary.js";
 
 export const signup = async (req, res) => {
   const { email, fullName, password } = req.body;
@@ -121,6 +122,45 @@ export const logout = (req, res) => {
     res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     console.error("Error during logout:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  const { fullName, profilePic } = req.body;
+  const userId = req.user._id;
+
+  try {
+    // Validate request body
+    if (!fullName && !profilePic) {
+      return res.status(400).json({ message: "No fields to update" });
+    }
+
+    // upload image to cloudinary
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+    // Find user and update
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { fullName, profilePic: uploadResponse.secure_url },
+      { new: true } // Return the updated user
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: {
+        _id: updatedUser._id,
+        email: updatedUser.email,
+        fullName: updatedUser.fullName,
+        profilePic: updatedUser.profilePic,
+      },
+    });
+  } catch (error) {
+    console.error("Error during profile update:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
