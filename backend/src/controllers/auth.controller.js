@@ -55,13 +55,10 @@ export const signup = async (req, res) => {
     } else {
       return res.status(400).json({ message: "User not created" });
     }
-
-    res.status(201).json({ message: "User created successfully" });
   } catch (error) {
     console.error("Error during signup:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-  res.status(200).json({ message: "Signup route" });
 };
 
 export const login = (req, res) => {
