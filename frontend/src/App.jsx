@@ -7,9 +7,10 @@ function App() {
   
   return (
     <div className="App">
-      <div className="text-3xl font-bold underline text-indigo-600 bg-slate-500">
-        Hello Vite + React!
-      </div>
+      <button className="btn btn-outline">Default</button>
+      <button className="btn btn-outline btn-primary">Primary</button>
+      <button className="btn btn-outline btn-secondary">Secondary</button>
+      <button className="btn btn-outline btn-accent">Accent</button>
     </div>
   );
 }
