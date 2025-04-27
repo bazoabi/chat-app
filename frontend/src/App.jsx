@@ -1,18 +1,28 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Navbar from "./components/Navbar.jsx";
+import { Routes, Route } from "react-router-dom";
 
+import SignUpPage from "./pages/SignUpPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import SettingsPage from "./pages/SettingsPage.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
+import HomePage from "./pages/HomePage.jsx";
+
+// This is the main component of the chat app.
 function App() {
-  
   return (
     <div className="App">
-      <button className="btn btn-outline">Default</button>
-      <button className="btn btn-outline btn-primary">Primary</button>
-      <button className="btn btn-outline btn-secondary">Secondary</button>
-      <button className="btn btn-outline btn-accent">Accent</button>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+      </Routes>
     </div>
   );
 }
 
-export default App
+export default App;
