@@ -164,3 +164,21 @@ export const updateProfile = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const checkAuth = async (req, res) => {
+  try {
+    const user = req.user; // User is already populated by the protectRoute middleware
+
+    if (!user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    res.status(200).json({
+      message: "User authenticated",
+      user,
+    });
+  } catch (error) {
+    console.error("Error during authentication check:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
