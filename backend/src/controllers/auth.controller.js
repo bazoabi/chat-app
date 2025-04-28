@@ -127,12 +127,12 @@ export const logout = (req, res) => {
 };
 
 export const updateProfile = async (req, res) => {
-  const { fullName, profilePic } = req.body;
+  const { profilePic } = req.body;
   const userId = req.user._id;
 
   try {
     // Validate request body
-    if (!fullName && !profilePic) {
+    if (!profilePic) {
       return res.status(400).json({ message: "No fields to update" });
     }
 
@@ -142,7 +142,7 @@ export const updateProfile = async (req, res) => {
     // Find user and update
     const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { fullName, profilePic: uploadResponse.secure_url },
+      { profilePic: uploadResponse.secure_url },
       { new: true } // Return the updated user
     );
 
