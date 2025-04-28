@@ -21,7 +21,7 @@ import { Toaster } from "react-hot-toast";
 // This is the main component of the chat app.
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
-  const { theme, setTheme } = useThemeStore();
+  const { theme } = useThemeStore();
 
   useEffect(() => {
     // Check if the user is authenticated when the app loads
