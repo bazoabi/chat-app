@@ -9,6 +9,8 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 
 import { useAuthStore } from "./store/useAuthStore.js";
+import { useThemeStore } from "./store/useThemeStore.js";
+
 import { useEffect } from "react";
 
 import { Loader } from "lucide-react";
@@ -19,6 +21,7 @@ import { Toaster } from "react-hot-toast";
 // This is the main component of the chat app.
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { theme, setTheme } = useThemeStore();
 
   useEffect(() => {
     // Check if the user is authenticated when the app loads
@@ -36,7 +39,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" data-theme={theme}>
       <Navbar />
 
       <Routes>
