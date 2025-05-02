@@ -23,7 +23,7 @@ app.use("/api/message", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist"))); // Serve static files from the frontend build directory
-  app.get("*", (req, res) => {
+  app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html")); // Serve the index.html file for all other routes
   });
 }
